@@ -1,0 +1,28 @@
+Docker Image:
+- https://github.com/joedwards32/CS2
+
+Plugins:
+- https://github.com/alliedmodders/metamod-source
+- https://github.com/roflmuffin/counterstrikesharp
+- https://github.com/shobhit-pathak/MatchZy
+- https://github.com/ianlucas/cs2-css-inventory-simulator
+
+Where to download all the plugins:
+- https://api.github.com/repos/roflmuffin/CounterStrikeSharp/releases/latest
+- browser_download_url -> *counterstrikesharp-with-runtime-linux*
+
+- https://api.github.com/repos/shobhit-pathak/MatchZy/releases/latest
+- browser_download_url -> not *-with-cssharp-*
+
+- https://api.github.com/repos/ianlucas/cs2-css-inventory-simulator/releases/latest
+- browser_download_url -> no restrictions
+
+- https://api.github.com/repos/alliedmodders/metamod-source/releases
+- select latest pre-release
+- browser_download_url -> *-linux*
+
+Things to patch and add:
+- add Matchzy Admins
+- cssharp set Follow CS2 Guidelines to false inside core.json
+- patch gameinfo (script already exists)
+- add inventory simulator flags
