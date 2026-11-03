@@ -5,8 +5,8 @@ services:
     platform: linux/amd64
     container_name: cs2-dedicated
     environment:
-      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
       - CS2_ADMIN_STEAMIDS=${CS2_ADMIN_STEAMIDS:-}
+      - CS2_AUTHKEY=${CS2_AUTHKEY:-}
       - DEBUG=0 # (0 - off, 1 - steamcmd, 2 - cs2, 3 - all)
       - STEAMAPPVALIDATE=0 # (0 - no validation, 1 - enable validation)
       - CS2_SERVERNAME=LAN DOS GURI # (Set the visible name for your private server.)
@@ -18,7 +18,6 @@ services:
       - CS2_RCONPW=changeme # (RCON password)
       - CS2_PW= # (Optional, CS2 server password)
       - CS2_MAXPLAYERS=15 # (Max players)
-      - CS2_ADDITIONAL_ARGS=-authkey AUTHKEY +exec inventory_simulator.cfg
       - CS2_CFG_URL # HTTP/HTTPS URL to fetch a Tar Gzip bundle, Tar or Zip archive of configuration files/mods
       # Game modes
       - CS2_GAMEALIAS # (Game type, e.g. casual, competitive, deathmatch. See https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers)
