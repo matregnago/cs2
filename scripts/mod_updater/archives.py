@@ -1,5 +1,7 @@
 """Extract supported package layouts without following links or escaping staging."""
 
+from __future__ import annotations
+
 import shutil
 import stat
 import tarfile
@@ -8,10 +10,12 @@ from pathlib import Path, PurePosixPath
 from typing import BinaryIO
 
 
-def archive_path(name: str) -> Path | None:
+def archive_path(name: str, prefix: str = "") -> Path | None:
     path = PurePosixPath(name)
     if "\\" in name or path.is_absolute() or ".." in path.parts or ":" in name:
         raise ValueError("unsafe archive path")
+    if prefix:
+        return Path(prefix, *path.parts)
     # Packages must have the layout expected by CS2, not an arbitrary outer directory.
     if not path.parts or path.parts[0] not in ("addons", "cfg"):
         return None
@@ -25,11 +29,11 @@ def _write_file(source: BinaryIO, target: Path, mode: int) -> None:
     target.chmod(mode)
 
 
-def extract(archive: Path, destination: Path) -> None:
+def extract(archive: Path, destination: Path, prefix: str = "") -> None:
     if archive.name.endswith(".zip"):
         with zipfile.ZipFile(archive) as bundle:
             for member in bundle.infolist():
-                path = archive_path(member.filename)
+                path = archive_path(member.filename, prefix)
                 if stat.S_ISLNK(member.external_attr >> 16):
                     raise ValueError("archive symlinks are not supported")
                 if path is None or member.is_dir():
@@ -40,7 +44,7 @@ def extract(archive: Path, destination: Path) -> None:
     else:
         with tarfile.open(archive, "r:gz") as bundle:
             for member in bundle:
-                path = archive_path(member.name)
+                path = archive_path(member.name, prefix)
                 if (
                     member.issym()
                     or member.islnk()

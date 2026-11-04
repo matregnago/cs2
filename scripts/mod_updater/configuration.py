@@ -1,5 +1,7 @@
 """Prepare persistent defaults, managed admins, and loader configuration."""
 
+from __future__ import annotations
+
 import json
 import re
 from pathlib import Path
@@ -60,6 +62,9 @@ def preserve_existing(path: Path) -> bool:
     return (
         name.startswith(("cfg/", "addons/counterstrikesharp/configs/"))
         or "/spawns/" in name
+        or name.startswith(
+            "addons/counterstrikesharp/plugins/disabled/RetakesPlugin/map_config/"
+        )
         or path.suffix.lower() in (".cfg", ".ini", ".db", ".sqlite", ".sqlite3")
         or path.name.lower() == "admins.json"
     )
@@ -111,6 +116,12 @@ def configure(
                 changes[relative] = source
 
     configure_admins(root, admin_ids, work, changes)
+
+    chat_control = Path(
+        "game/csgo/addons/counterstrikesharp/configs/plugins/ChatControl/ChatControl.json"
+    )
+    if not safe_target(root, chat_control).exists():
+        changes[chat_control] = Path(__file__).parent.parent / "ChatControl.json"
 
     relative = Path("game/csgo/addons/counterstrikesharp/configs/core.json")
     existing = safe_target(root, relative)

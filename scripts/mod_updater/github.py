@@ -1,5 +1,7 @@
 """GitHub release discovery and downloads with bounded retries."""
 
+from __future__ import annotations
+
 import hashlib
 import json
 import shutil

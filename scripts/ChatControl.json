@@ -1,0 +1,19 @@
+{
+  "ChatPrefix": "!",
+  "MapCommandName": "map",
+  "RconCommandName": "",
+  "Presets": {
+    "pug": [
+      "css_plugins unload plugins/disabled/RetakesPlugin/RetakesPlugin.dll",
+      "css_plugins load MatchZy",
+      "changelevel de_mirage"
+    ],
+    "retake": [
+      "css_plugins unload MatchZy",
+      "css_plugins load plugins/disabled/RetakesPlugin/RetakesPlugin.dll",
+      "sv_showimpacts 0",
+      "changelevel de_mirage"
+      ]
+  },
+  "ConfigVersion": 1
+}

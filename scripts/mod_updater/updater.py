@@ -1,5 +1,7 @@
 """Stage and validate a full update before committing it to the game volume."""
 
+from __future__ import annotations
+
 import json
 import os
 import re
@@ -73,7 +75,12 @@ class Updater:
             self.github.download(asset, archive)
             staged = work / mod.name
             staged.mkdir()
-            extract(archive, staged)
+            extract(archive, staged, mod.archive_prefix)
+            if mod.plugin_directory:
+                plugins = staged / "addons/counterstrikesharp/plugins"
+                disabled = plugins / "disabled"
+                disabled.mkdir(exist_ok=True)
+                (plugins / mod.plugin_directory).rename(disabled / mod.plugin_directory)
             if not mod.is_installed(staged):
                 raise ValueError(f"{mod.name}: package is missing essential files")
             for source in staged.rglob("*"):

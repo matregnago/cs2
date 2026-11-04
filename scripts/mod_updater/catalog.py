@@ -11,6 +11,8 @@ class Mod:
     asset_pattern: str
     required_files: tuple[str, ...]
     release_tag_prefix: str = ""
+    plugin_directory: str = ""
+    archive_prefix: str = ""
 
     def is_installed(self, root: Path) -> bool:
         """Each required glob must match at least one nonempty file."""
@@ -52,6 +54,26 @@ MODS = (
         repository="shobhit-pathak/MatchZy",
         asset_pattern=r"MatchZy-(?!.*with-cssharp).*\.zip",
         required_files=("addons/counterstrikesharp/plugins/MatchZy/MatchZy.dll",),
+    ),
+    Mod(
+        name="retakes",
+        repository="B3none/cs2-retakes",
+        asset_pattern=r"RetakesPlugin-[0-9]+\.[0-9]+\.[0-9]+\.zip",
+        required_files=(
+            "addons/counterstrikesharp/plugins/disabled/RetakesPlugin/RetakesPlugin.dll",
+            "addons/counterstrikesharp/plugins/disabled/RetakesPlugin/map_config/de_mirage.json",
+            "addons/counterstrikesharp/shared/RetakesPluginShared/RetakesPluginShared.dll",
+        ),
+        plugin_directory="RetakesPlugin",
+    ),
+    Mod(
+        name="chatcontrol",
+        repository="timche/cs2-chat-control",
+        asset_pattern=r"ChatControl-.*\.zip",
+        required_files=(
+            "addons/counterstrikesharp/plugins/ChatControl/ChatControl.dll",
+        ),
+        archive_prefix="addons/counterstrikesharp/plugins",
     ),
     Mod(
         name="inventory",

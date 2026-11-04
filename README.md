@@ -1,7 +1,8 @@
 # CS2 modded server
 
 Docker server based on `joedwards32/cs2`, with Metamod, CounterStrikeSharp,
-MatchZy, and [Inventory Simulator](https://inventory.cstrike.app/).
+MatchZy, [CS2 Retakes](https://github.com/B3none/cs2-retakes), and
+[Inventory Simulator](https://inventory.cstrike.app/).
 Game and mod updates run automatically at startup, including mod prereleases.
 
 ## Quick start
@@ -37,6 +38,11 @@ Apply environment changes by recreating the container:
 ```sh
 docker compose up -d --force-recreate
 ```
+
+## Switching modes and maps
+
+Use `!pug` or `!retake` to switch modes and load Mirage.
+Use `!map` separately to select a different map by name, Workshop ID, or URL.
 
 ## Updates
 
