@@ -7,3 +7,5 @@ scripts/**/__pycache__/
 scripts/**/*.pyc
 !cfg/
 !cfg/**
+!pterodactyl/
+!pterodactyl/start.sh

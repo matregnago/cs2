@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "name": "CS2 Modded - PUG and Retake",
+  "author": "admin@example.com",
+  "description": "Counter-Strike 2 with CounterStrikeSharp, MatchZy, Retakes, ChatControl, and Inventory Simulator. Starts in PUG.",
+  "features": [
+    "steam_disk_space"
+  ],
+  "docker_images": {
+    "CS2 Modded (amd64)": "ghcr.io/matregnago/cs2:latest"
+  },
+  "file_denylist": [],
+  "startup": "bash /opt/cs2-mods/start-pterodactyl.sh",
+  "config": {
+    "files": "{}",
+    "startup": "{\"done\":\"player server started\"}",
+    "logs": "{}",
+    "stop": "quit"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/bash\nset -euo pipefail\nexport HOME=/mnt/server\nmkdir -p \"$HOME/steamcmd\" \"$HOME/steamapps\" \"$HOME/.steam/sdk32\" \"$HOME/.steam/sdk64\"\napt-get update\napt-get install -y --no-install-recommends ca-certificates curl lib32gcc-s1\narchive=\"$(mktemp)\"\ntrap 'rm -f \"$archive\"' EXIT\ncurl -fsSL --retry 3 https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz -o \"$archive\"\ntar -xzf \"$archive\" -C \"$HOME/steamcmd\"\ncd \"$HOME/steamcmd\"\n./steamcmd.sh +force_install_dir \"$HOME\" +login anonymous +app_update 730 +quit\ntest -x \"$HOME/game/bin/linuxsteamrt64/cs2\"\ninstall -m 644 linux32/steamclient.so \"$HOME/.steam/sdk32/steamclient.so\"\ninstall -m 644 linux64/steamclient.so \"$HOME/.steam/sdk64/steamclient.so\"\n",
+      "container": "ghcr.io/parkervcp/installers:debian",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": [
+    {
+      "name": "Server name",
+      "description": "Name shown in the server browser.",
+      "env_variable": "CS2_SERVERNAME",
+      "default_value": "CS2 Modded",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string|max:100",
+      "field_type": "text"
+    },
+    {
+      "name": "Start map",
+      "description": "Built-in map loaded on startup in PUG mode.",
+      "env_variable": "CS2_STARTMAP",
+      "default_value": "de_mirage",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|alpha_dash|max:64",
+      "field_type": "text"
+    },
+    {
+      "name": "Max players",
+      "description": "Maximum player slots.",
+      "env_variable": "CS2_MAXPLAYERS",
+      "default_value": "15",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|integer|min:2|max:64",
+      "field_type": "text"
+    },
+    {
+      "name": "Admin SteamID64s",
+      "description": "Comma- or space-separated SteamID64s for MatchZy and CounterStrikeSharp.",
+      "env_variable": "CS2_ADMIN_STEAMIDS",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string|max:1024",
+      "field_type": "text"
+    },
+    {
+      "name": "Steam GSLT",
+      "description": "Steam game server login token, if used.",
+      "env_variable": "STEAM_GSLT",
+      "default_value": "",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "nullable|alpha_num|max:128",
+      "field_type": "text"
+    },
+    {
+      "name": "Steam Web API key",
+      "description": "Optional auth key for Workshop maps.",
+      "env_variable": "CS2_AUTHKEY",
+      "default_value": "",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "nullable|alpha_num|max:128",
+      "field_type": "text"
+    },
+    {
+      "name": "Server password",
+      "description": "Optional password for players joining the server.",
+      "env_variable": "CS2_PW",
+      "default_value": "",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "nullable|string|max:128",
+      "field_type": "text"
+    },
+    {
+      "name": "RCON password",
+      "description": "Optional RCON password. An empty value disables RCON.",
+      "env_variable": "CS2_RCONPW",
+      "default_value": "",
+      "user_viewable": false,
+      "user_editable": false,
+      "rules": "nullable|string|max:128",
+      "field_type": "text"
+    },
+    {
+      "name": "Update CS2 on startup",
+      "description": "Set to 0 to skip SteamCMD updates after installation. Mods are still checked.",
+      "env_variable": "CS2_AUTO_UPDATE",
+      "default_value": "1",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|in:0,1",
+      "field_type": "text"
+    }
+  ]
+}

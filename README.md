@@ -73,6 +73,10 @@ The server always executes `inventory_simulator.cfg` at startup.
 To customize the startup hook, edit `pre.sh` here and rebuild; the copy in
 `cs2-data` is replaced on startup.
 
+## Pterodactyl
+
+[Pterodactyl setup and Egg import instructions](pterodactyl/README.md).
+
 ## Credits
 
 - [kus/cs2-modded-server](https://github.com/kus/cs2-modded-server)

@@ -1,6 +1,11 @@
 #!/bin/bash
 set -eu
 
+# Wings supplies STARTUP and mounts a volume already owned by its runtime user.
+if [[ "${STARTUP:-}" == "bash /opt/cs2-mods/start-pterodactyl.sh" ]]; then
+    exec bash /opt/cs2-mods/start-pterodactyl.sh
+fi
+
 : "${STEAMAPPDIR:=/home/steam/cs2-dedicated}"
 export STEAMAPPDIR
 # setpriv changes credentials but does not reset root's inherited environment.

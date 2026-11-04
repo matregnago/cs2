@@ -8,6 +8,7 @@ RUN apt-get update \
 COPY scripts/ /opt/cs2-mods/
 COPY pre.sh /opt/cs2-mods/pre.sh
 COPY cfg/ /opt/cs2-mods/cfg/
+COPY pterodactyl/start.sh /opt/cs2-mods/start-pterodactyl.sh
 RUN chmod 755 /opt/cs2-mods/docker-entrypoint.sh
 
 # The wrapper repairs volume ownership, then drops privileges before running CS2.
