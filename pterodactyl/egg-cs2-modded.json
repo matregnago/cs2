@@ -4,7 +4,7 @@
     "update_url": null
   },
   "name": "CS2 Modded - PUG and Retake",
-  "author": "admin@example.com",
+  "author": "me@matregnago.com",
   "description": "Counter-Strike 2 with CounterStrikeSharp, MatchZy, Retakes, ChatControl, and Inventory Simulator. Starts in PUG.",
   "features": [
     "steam_disk_space"
