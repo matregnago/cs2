@@ -39,5 +39,8 @@ if [[ -n "${CS2_AUTHKEY:-}" ]]; then
     args+=(-authkey "$CS2_AUTHKEY")
 fi
 
-exec ./game/bin/linuxsteamrt64/cs2 "${args[@]}" \
-    +map "${CS2_STARTMAP:-de_mirage}" +exec inventory_simulator.cfg
+cd "$HOME/game"
+
+exec ./cs2.sh "${args[@]}" \
+    +map "${CS2_STARTMAP:-de_mirage}" \
+    +exec inventory_simulator.cfg
