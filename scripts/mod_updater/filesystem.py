@@ -8,7 +8,7 @@ from pathlib import Path
 
 from . import log
 
-Changes = dict[Path, Path]
+Changes = dict[Path, Path | None]
 
 
 def atomic_write(path: Path, data: bytes) -> None:
@@ -76,6 +76,9 @@ class Transaction:
         try:
             for relative, source in changes.items():
                 target = safe_target(self.root, relative)
+                if source is None:
+                    target.unlink(missing_ok=True)
+                    continue
                 target.parent.mkdir(parents=True, exist_ok=True)
                 temporary = target.with_name(target.name + ".mod-updater-tmp")
                 shutil.copy2(source, temporary)

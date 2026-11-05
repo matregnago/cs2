@@ -4,6 +4,8 @@
   "RconCommandName": "",
   "Presets": {
     "pug": [
+      "css_plugins unload plugins/disabled/RetakesAllocator/RetakesAllocator.dll",
+      "css_plugins unload plugins/disabled/InstadefusePlugin/InstadefusePlugin.dll",
       "css_plugins unload plugins/disabled/RetakesPlugin/RetakesPlugin.dll",
       "css_plugins load MatchZy",
       "changelevel de_mirage"
@@ -11,6 +13,8 @@
     "retake": [
       "css_plugins unload MatchZy",
       "css_plugins load plugins/disabled/RetakesPlugin/RetakesPlugin.dll",
+      "css_plugins load plugins/disabled/InstadefusePlugin/InstadefusePlugin.dll",
+      "css_plugins load plugins/disabled/RetakesAllocator/RetakesAllocator.dll",
       "sv_showimpacts 0",
       "changelevel de_mirage"
       ]

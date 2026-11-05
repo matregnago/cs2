@@ -75,12 +75,18 @@ class Updater:
             self.github.download(asset, archive)
             staged = work / mod.name
             staged.mkdir()
-            extract(archive, staged, mod.archive_prefix)
+            extract(archive, staged, mod.archive_prefix, mod.windows_archive_paths)
             if mod.plugin_directory:
                 plugins = staged / "addons/counterstrikesharp/plugins"
                 disabled = plugins / "disabled"
                 disabled.mkdir(exist_ok=True)
                 (plugins / mod.plugin_directory).rename(disabled / mod.plugin_directory)
+            if mod.name in ("instadefuse", "retakes-allocator"):
+                old_plugin = Path(
+                    "game/csgo/addons/counterstrikesharp/plugins"
+                ) / mod.plugin_directory / f"{mod.plugin_directory}.dll"
+                if safe_target(self.root, old_plugin).exists():
+                    changes[old_plugin] = None
             if not mod.is_installed(staged):
                 raise ValueError(f"{mod.name}: package is missing essential files")
             for source in staged.rglob("*"):

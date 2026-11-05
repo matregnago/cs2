@@ -6,6 +6,7 @@ import json
 import re
 from pathlib import Path
 
+from .chat_control import stage_chat_control
 from .filesystem import Changes, json_bytes, safe_target
 
 
@@ -117,11 +118,7 @@ def configure(
 
     configure_admins(root, admin_ids, work, changes)
 
-    chat_control = Path(
-        "game/csgo/addons/counterstrikesharp/configs/plugins/ChatControl/ChatControl.json"
-    )
-    if not safe_target(root, chat_control).exists():
-        changes[chat_control] = Path(__file__).parent.parent / "ChatControl.json"
+    stage_chat_control(root, changes)
 
     relative = Path("game/csgo/addons/counterstrikesharp/configs/core.json")
     existing = safe_target(root, relative)

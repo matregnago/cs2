@@ -13,6 +13,7 @@ class Mod:
     release_tag_prefix: str = ""
     plugin_directory: str = ""
     archive_prefix: str = ""
+    windows_archive_paths: bool = False
 
     def is_installed(self, root: Path) -> bool:
         """Each required glob must match at least one nonempty file."""
@@ -65,6 +66,29 @@ MODS = (
             "addons/counterstrikesharp/shared/RetakesPluginShared/RetakesPluginShared.dll",
         ),
         plugin_directory="RetakesPlugin",
+    ),
+    Mod(
+        name="instadefuse",
+        repository="B3none/cs2-instadefuse",
+        asset_pattern=r"cs2-instadefuse-.*\.zip",
+        required_files=(
+            "addons/counterstrikesharp/plugins/disabled/InstadefusePlugin/InstadefusePlugin.dll",
+        ),
+        plugin_directory="InstadefusePlugin",
+        archive_prefix="addons/counterstrikesharp/plugins",
+    ),
+    Mod(
+        name="retakes-allocator",
+        repository="Micka2302/cs2-retakes-allocator-2.0",
+        asset_pattern=r"RetakesAllocator\.zip",
+        required_files=(
+            "addons/counterstrikesharp/plugins/disabled/RetakesAllocator/RetakesAllocator.dll",
+            "addons/counterstrikesharp/plugins/SharpModMenu/SharpModMenu.dll",
+            "addons/counterstrikesharp/shared/CSSUniversalMenuAPI/CSSUniversalMenuAPI.dll",
+        ),
+        plugin_directory="RetakesAllocator",
+        archive_prefix="addons/counterstrikesharp",
+        windows_archive_paths=True,
     ),
     Mod(
         name="chatcontrol",

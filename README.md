@@ -1,7 +1,9 @@
 # CS2 modded server
 
 Docker server based on `joedwards32/cs2`, with Metamod, CounterStrikeSharp,
-MatchZy, [CS2 Retakes](https://github.com/B3none/cs2-retakes), and
+MatchZy, [CS2 Retakes](https://github.com/B3none/cs2-retakes),
+[Instadefuse](https://github.com/B3none/cs2-instadefuse),
+[Retakes Allocator](https://github.com/Micka2302/cs2-retakes-allocator-2.0), and
 [Inventory Simulator](https://inventory.cstrike.app/).
 Game and mod updates run automatically at startup, including mod prereleases.
 

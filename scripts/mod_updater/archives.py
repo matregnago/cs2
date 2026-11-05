@@ -29,14 +29,17 @@ def _write_file(source: BinaryIO, target: Path, mode: int) -> None:
     target.chmod(mode)
 
 
-def extract(archive: Path, destination: Path, prefix: str = "") -> None:
+def extract(
+    archive: Path, destination: Path, prefix: str = "", windows_paths: bool = False
+) -> None:
     if archive.name.endswith(".zip"):
         with zipfile.ZipFile(archive) as bundle:
             for member in bundle.infolist():
-                path = archive_path(member.filename, prefix)
+                name = member.filename.replace("\\", "/") if windows_paths else member.filename
+                path = archive_path(name, prefix)
                 if stat.S_ISLNK(member.external_attr >> 16):
                     raise ValueError("archive symlinks are not supported")
-                if path is None or member.is_dir():
+                if path is None or member.is_dir() or name.endswith("/"):
                     continue
                 mode = 0o755 if member.external_attr >> 16 & 0o111 else 0o644
                 with bundle.open(member) as source:
