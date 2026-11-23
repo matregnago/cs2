@@ -10,4 +10,4 @@ if [[ -n "${CS2_AUTHKEY:-}" ]]; then
     printf -v cs2_authkey_arg '%q' "$CS2_AUTHKEY"
     CS2_ADDITIONAL_ARGS+=" -authkey ${cs2_authkey_arg}"
 fi
-CS2_ADDITIONAL_ARGS+=" +exec inventory_simulator.cfg"
+CS2_ADDITIONAL_ARGS+=" -allow_round_backup_files +exec inventory_simulator.cfg"

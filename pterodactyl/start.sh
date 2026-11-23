@@ -22,6 +22,7 @@ python3 /opt/cs2-mods/update_mods.py
 
 args=(
     -dedicated -console -ip 0.0.0.0 -port "${SERVER_PORT:?Wings must supply SERVER_PORT}"
+    -allow_round_backup_files
     -maxplayers "${CS2_MAXPLAYERS:-15}"
     +game_type 0 +game_mode 1 +mapgroup mg_active
     +hostname "${CS2_SERVERNAME:-CS2 Modded}" +sv_lan 0
